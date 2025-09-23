@@ -1,0 +1,99 @@
+[I 2025-09-23 04:10:14.974 ServerApp] jupyter_lsp | extension was successfully linked.
+[I 2025-09-23 04:10:14.977 ServerApp] jupyter_server_terminals | extension was successfully linked.
+[I 2025-09-23 04:10:14.981 ServerApp] jupyterlab | extension was successfully linked.
+[I 2025-09-23 04:10:14.985 ServerApp] notebook | extension was successfully linked.
+[I 2025-09-23 04:10:15.189 ServerApp] notebook_shim | extension was successfully linked.
+[I 2025-09-23 04:10:15.203 ServerApp] notebook_shim | extension was successfully loaded.
+[I 2025-09-23 04:10:15.204 ServerApp] jupyter_lsp | extension was successfully loaded.
+[I 2025-09-23 04:10:15.205 ServerApp] jupyter_server_terminals | extension was successfully loaded.
+[I 2025-09-23 04:10:15.207 LabApp] JupyterLab extension loaded from /home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyterlab
+[I 2025-09-23 04:10:15.207 LabApp] JupyterLab application directory is /home/mamaral/code/persona-phase-transition/venv/share/jupyter/lab
+[I 2025-09-23 04:10:15.207 LabApp] Extension Manager is 'pypi'.
+[I 2025-09-23 04:10:15.260 ServerApp] jupyterlab | extension was successfully loaded.
+[I 2025-09-23 04:10:15.263 ServerApp] notebook | extension was successfully loaded.
+[I 2025-09-23 04:10:15.263 ServerApp] Serving notebooks from local directory: /home/mamaral/code/persona-phase-transition
+[I 2025-09-23 04:10:15.263 ServerApp] Jupyter Server 2.17.0 is running at:
+[I 2025-09-23 04:10:15.263 ServerApp] http://ai-node:8888/tree?token=81c478a96624c71e14b56fe3dd71348975567749b31049e5
+[I 2025-09-23 04:10:15.263 ServerApp]     http://127.0.0.1:8888/tree?token=81c478a96624c71e14b56fe3dd71348975567749b31049e5
+[I 2025-09-23 04:10:15.263 ServerApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[C 2025-09-23 04:10:15.265 ServerApp] 
+    
+    To access the server, open this file in a browser:
+        file:///home/mamaral/.local/share/jupyter/runtime/jpserver-2585-open.html
+    Or copy and paste one of these URLs:
+        http://ai-node:8888/tree?token=81c478a96624c71e14b56fe3dd71348975567749b31049e5
+        http://127.0.0.1:8888/tree?token=81c478a96624c71e14b56fe3dd71348975567749b31049e5
+[I 2025-09-23 04:10:15.278 ServerApp] Skipped non-installed server(s): basedpyright, bash-language-server, dockerfile-language-server-nodejs, javascript-typescript-langserver, jedi-language-server, julia-language-server, pyrefly, pyright, python-language-server, python-lsp-server, r-languageserver, sql-language-server, texlab, typescript-language-server, unified-language-server, vscode-css-languageserver-bin, vscode-html-languageserver-bin, vscode-json-languageserver-bin, yaml-language-server
+[W 2025-09-23 06:16:33.569 ServerApp] 400 GET /api/contents/notebooks/01_define_persona_vector.ipynb?type=notebook&content=1&hash=1&contentProviderId=undefined&1758608193448 (192.168.1.78): Unreadable Notebook: /home/mamaral/code/persona-phase-transition/notebooks/01_define_persona_vector.ipynb NotJSONError("Notebook does not appear to be JSON: ''")
+[W 2025-09-23 06:16:33.570 ServerApp] wrote error: 'Unreadable Notebook: /home/mamaral/code/persona-phase-transition/notebooks/01_define_persona_vector.ipynb NotJSONError("Notebook does not appear to be JSON: \'\'")'
+    Traceback (most recent call last):
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/tornado/web.py", line 1848, in _execute
+        result = await result
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/auth/decorator.py", line 73, in inner
+        return await out
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/services/contents/handlers.py", line 156, in get
+        model = await ensure_async(
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 197, in ensure_async
+        result = await obj
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/services/contents/filemanager.py", line 924, in get
+        model = await self._notebook_model(path, content=content, require_hash=require_hash)
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/services/contents/filemanager.py", line 870, in _notebook_model
+        nb, bytes_content = await self._read_notebook(
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/services/contents/fileio.py", line 497, in _read_notebook
+        raise HTTPError(
+    tornado.web.HTTPError: HTTP 400: Bad Request (Unreadable Notebook: /home/mamaral/code/persona-phase-transition/notebooks/01_define_persona_vector.ipynb NotJSONError("Notebook does not appear to be JSON: ''"))
+[W 2025-09-23 06:16:33.572 ServerApp] 400 GET /api/contents/notebooks/01_define_persona_vector.ipynb?type=notebook&content=1&hash=1&contentProviderId=undefined&1758608193448 (000e628be79241d2901bab533dc73fc7@192.168.1.78) 12.32ms referer=http://ai-node:8888/tree/notebooks
+[W 2025-09-23 06:16:34.564 ServerApp] 400 GET /api/contents/notebooks/01_define_persona_vector.ipynb?type=notebook&content=1&hash=1&contentProviderId=undefined&1758608194556 (192.168.1.78): Unreadable Notebook: /home/mamaral/code/persona-phase-transition/notebooks/01_define_persona_vector.ipynb NotJSONError("Notebook does not appear to be JSON: ''")
+[W 2025-09-23 06:16:34.564 ServerApp] wrote error: 'Unreadable Notebook: /home/mamaral/code/persona-phase-transition/notebooks/01_define_persona_vector.ipynb NotJSONError("Notebook does not appear to be JSON: \'\'")'
+    Traceback (most recent call last):
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/tornado/web.py", line 1848, in _execute
+        result = await result
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/auth/decorator.py", line 73, in inner
+        return await out
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/services/contents/handlers.py", line 156, in get
+        model = await ensure_async(
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_core/utils/__init__.py", line 197, in ensure_async
+        result = await obj
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/services/contents/filemanager.py", line 924, in get
+        model = await self._notebook_model(path, content=content, require_hash=require_hash)
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/services/contents/filemanager.py", line 870, in _notebook_model
+        nb, bytes_content = await self._read_notebook(
+      File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/jupyter_server/services/contents/fileio.py", line 497, in _read_notebook
+        raise HTTPError(
+    tornado.web.HTTPError: HTTP 400: Bad Request (Unreadable Notebook: /home/mamaral/code/persona-phase-transition/notebooks/01_define_persona_vector.ipynb NotJSONError("Notebook does not appear to be JSON: ''"))
+[W 2025-09-23 06:16:34.565 ServerApp] 400 GET /api/contents/notebooks/01_define_persona_vector.ipynb?type=notebook&content=1&hash=1&contentProviderId=undefined&1758608194556 (000e628be79241d2901bab533dc73fc7@192.168.1.78) 3.54ms referer=http://ai-node:8888/notebooks/notebooks/01_define_persona_vector.ipynb
+[I 2025-09-23 06:16:55.466 ServerApp] Creating new notebook in 
+[I 2025-09-23 06:16:55.522 ServerApp] Writing notebook-signing key to /home/mamaral/.local/share/jupyter/notebook_secret
+[I 2025-09-23 06:16:59.095 ServerApp] Kernel started: d81c5a00-aa2d-4416-884b-71398df63750
+[I 2025-09-23 06:16:59.490 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[W 2025-09-23 06:16:59.492 ServerApp] The websocket_ping_timeout (90000) cannot be longer than the websocket_ping_interval (30000).
+    Setting websocket_ping_timeout=30000
+[I 2025-09-23 06:16:59.498 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-23 06:16:59.505 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[W 2025-09-23 06:16:59.578 ServerApp] Got events for closed stream <zmq.eventloop.zmqstream.ZMQStream object at 0x7f3408f88730>
+[I 2025-09-23 06:17:04.368 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-23 06:19:01.795 ServerApp] Saving file at /01_define_persona_vector.ipynb
+[I 2025-09-23 06:19:10.084 ServerApp] Creating new notebook in 
+[I 2025-09-23 06:19:10.953 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-23 06:19:13.183 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-23 06:19:22.628 ServerApp] Kernel started: 4a70f21d-bc39-4189-9be2-1804f5b0d5aa
+[I 2025-09-23 06:19:23.003 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-23 06:19:28.264 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:9bb8c925-6903-42a7-ad80-724554007ebb
+[I 2025-09-23 06:20:31.843 ServerApp] Saving file at /02_plot_phase_transition.ipynb
+[I 2025-09-23 06:20:37.671 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:79726bf6-b0ca-43cf-aa69-6cc41319c6c5
+[I 2025-09-23 06:21:03.357 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-23 06:21:03.376 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-23 06:21:03.673 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:58d14cfc-fbef-49ed-ba5a-11dfe9ca22ff
+[I 2025-09-23 06:21:03.674 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:2b85e109-0884-416d-a85a-ee9f6997cc70
+[I 2025-09-23 06:21:03.848 ServerApp] Kernel started: 6dcece0b-7867-45aa-bf79-ddf4a5f778eb
+[I 2025-09-23 06:21:04.200 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-23 06:21:05.227 ServerApp] Starting buffering for 6dcece0b-7867-45aa-bf79-ddf4a5f778eb:4969f554-081b-44d3-99f1-090fcfdcc682
+[I 2025-09-23 06:21:06.738 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-23 06:21:06.757 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-23 06:21:06.775 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-23 06:21:07.109 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:d648b293-e9dd-4f86-ae8b-8c1095786447
+[I 2025-09-23 06:21:07.110 ServerApp] Starting buffering for 6dcece0b-7867-45aa-bf79-ddf4a5f778eb:8cfd30bd-f1ba-4b74-af33-8c6714d092d2
+[I 2025-09-23 06:21:07.110 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:637e8f3b-1f21-4f44-ac6a-3de64caa3780
+[I 2025-09-23 06:21:07.234 ServerApp] Kernel started: 00325d07-ce85-4f56-a6ec-83b337bcce90
+[I 2025-09-23 06:21:07.582 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-23 06:21:07.753 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:2bd64505-dc6b-4721-89e8-cb3e969132d8

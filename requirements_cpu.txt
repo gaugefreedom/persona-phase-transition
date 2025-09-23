@@ -1,7 +1,5 @@
 # requirements_cpu.txt
 # For CPU-only machines. Installs the CPU version of PyTorch.
-
---index-url https://download.pytorch.org/whl/cpu
 torch
 transformers==4.41.2
 peft==0.10.0
