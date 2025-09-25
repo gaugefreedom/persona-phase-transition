@@ -7,6 +7,9 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments
 from peft import LoraConfig
 from trl import SFTTrainer
 
+from huggingface_hub import login
+login(token="...")  # replace ... with your HF token or set env var HUGGINGFACE_HUB_TOKEN
+
 def main(args):
     # 1) Load model/tokenizer
     load_kwargs = {
