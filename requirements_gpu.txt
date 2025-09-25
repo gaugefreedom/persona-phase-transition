@@ -1,6 +1,5 @@
 # requirements_gpu.txt
 # For machines with a CUDA-enabled NVIDIA GPU.
-
 torch
 transformers==4.41.2
 peft==0.10.0

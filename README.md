@@ -9,7 +9,7 @@ The experiment is divided into five sequential steps. Steps 1 and 5 are best per
 ### **Step 1: Define the Persona Vector (`notebooks/`)**
 
 * **Goal:** Define a direction in the model's activation space that corresponds to the "Cautious Scientist" persona.
-* **Action:** Open and run `notebooks/01_define_persona_vector.ipynb`. This notebook will use contrasting prompt pairs (e.g., cautious vs. speculative answers) to find and save the persona vector.
+* **Action:** Open and run `notebooks/01_define_persona_vector.ipynb` for the same model of Step 3. This notebook will use contrasting prompt pairs (e.g., cautious vs. speculative answers) to find and save the persona vector.
 
 ### **Step 2: Generate the Training Dataset (`scripts/`)**
 
@@ -22,8 +22,12 @@ The experiment is divided into five sequential steps. Steps 1 and 5 are best per
 * **Action:** Run the fine-tuning script. **This is the main GPU-intensive step.**
     ```bash
     python scripts/02_iterative_finetune.py \
-        --base_model "meta-llama/Meta-Llama-3.2-8B-Instruct" \
-        --output_dir "checkpoints/cautious_scientist_run_01"
+  --base_model "meta-llama/Meta-Llama-3.2-8B-Instruct" \
+  --dataset_path "data/cautious_scientist_dataset.jsonl" \
+  --output_dir "checkpoints/cautious_scientist_run_01" \
+  --save_steps 200 \
+  --load_in_4bit true
+
     ```
 
 ### **Step 4: Analyze Checkpoints (`scripts/`)**
@@ -32,9 +36,11 @@ The experiment is divided into five sequential steps. Steps 1 and 5 are best per
 * **Action:** Run the analysis script. This will iterate through all checkpoints and save the results to a CSV file.
     ```bash
     python scripts/03_analyze_checkpoints.py \
-        --checkpoints_dir "checkpoints/cautious_scientist_run_01" \
-        --persona_vector_path "vectors/cautious_scientist.pt" \
-        --output_csv "results/phase_transition_data.csv"
+  --base_model "meta-llama/Meta-Llama-3.2-8B-Instruct" \
+  --checkpoints_dir "checkpoints/cautious_scientist_run_01" \
+  --persona_vector_path "vectors/cautious_scientist_vector.pt" \
+  --output_csv "results/phase_transition_data.csv" \
+  --layer_index -2
     ```
 
 ### **Step 5: Visualize the Phase Transition (`notebooks/`)**
