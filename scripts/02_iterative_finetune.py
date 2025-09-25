@@ -78,7 +78,7 @@ def main():
 
     model = AutoModelForCausalLM.from_pretrained(
         args.base_model,
-        dtype=dtype,
+        torch_dtype=dtype,
         device_map=("auto" if use_cuda else None),
         low_cpu_mem_usage=not use_cuda,
     )
@@ -169,3 +169,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
