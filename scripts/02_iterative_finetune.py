@@ -72,18 +72,23 @@ def main():
 
     # 1) Tokenizer / Model
     tokenizer = AutoTokenizer.from_pretrained(args.base_model, use_fast=True)
-    # ensure padding token
     if tokenizer.pad_token_id is None:
         tokenizer.pad_token = tokenizer.eos_token
 
+    use_cuda = torch.cuda.is_available()
+    dtype = torch.bfloat16 if use_cuda else torch.float32
+
     model = AutoModelForCausalLM.from_pretrained(
         args.base_model,
-        torch_dtype=dtype,
+        dtype=dtype,
         device_map=("auto" if use_cuda else None),
         low_cpu_mem_usage=not use_cuda,
+        attn_implementation="eager",  # Gemma-2 recommends 'eager'
     )
+
     if not use_cuda:
         model = model.to("cpu")
+
 
     # 2) Apply LoRA
     lora_cfg = LoraConfig(
@@ -102,37 +107,50 @@ def main():
         p = example["prompt"]
         r = example["response"]
 
-        # tokens for the "prompt only" with generation prompt -> boundary where assistant starts
+        # 1) Tokenize “prompt only” (with generation prompt) to locate assistant boundary
         prompt_ids = tokenizer.apply_chat_template(
             [{"role": "user", "content": p}],
             tokenize=True, add_generation_prompt=True
         )
-        # tokens for the full conversation (user + assistant)
+
+        # 2) Tokenize full conversation (user + assistant)
         full_ids = tokenizer.apply_chat_template(
             [{"role": "user", "content": p}, {"role": "assistant", "content": r}],
             tokenize=True, add_generation_prompt=False
         )
 
-        # truncate to max length
+        # 3) Right-truncate to keep the tail (most likely contains assistant tokens)
         max_len = args.max_seq_length
-        input_ids = full_ids[:max_len]
-        attn = [1] * len(input_ids)
+        if len(full_ids) > max_len:
+            offset = len(full_ids) - max_len
+            input_ids = full_ids[offset:]
+        else:
+            offset = 0
+            input_ids = full_ids
 
-        # compute boundary after truncation
-        boundary = min(len(prompt_ids), len(input_ids))
+        # 4) Compute boundary AFTER truncation
+        #    (how many tokens belong to the prompt region inside the truncated window)
+        boundary = max(0, min(len(input_ids), len(prompt_ids) - offset))
 
-        # labels: mask user portion
+        # 5) Labels: mask user region (<= boundary-1), learn only assistant
         labels = input_ids.copy()
         for i in range(boundary):
             labels[i] = -100
 
-        return {
-            "input_ids": input_ids,
-            "attention_mask": attn,
-            "labels": labels,
-        }
+        attention_mask = [1] * len(input_ids)
+        return {"input_ids": input_ids, "attention_mask": attention_mask, "labels": labels}
+
 
     proc = ds.map(build_example, remove_columns=ds.column_names, desc="Tokenizing+masking")
+
+    # Keep only examples with at least one unmasked label token
+    def has_supervision(ex):
+        # any label != -100 ?
+        return any(l != -100 for l in ex["labels"])
+
+    proc = proc.filter(has_supervision, desc="Filtering empty-label examples")
+    print("Kept examples:", len(proc))
+
 
     # 5) Training args
     train_args = TrainingArguments(
@@ -146,12 +164,13 @@ def main():
         save_steps=args.save_steps,
         save_total_limit=5,
         save_strategy="steps",
-        bf16=use_cuda,  # only used on GPU
+        bf16=use_cuda,
         fp16=False,
-        gradient_checkpointing=True,
+        gradient_checkpointing=use_cuda,  # only on GPU
         optim="adamw_torch",
-        report_to=[],  # disable wandb by default
+        report_to=[],
     )
+
 
     trainer = Trainer(
         model=model,
