@@ -12,7 +12,7 @@ Example:
     --base_model "$PPT_MODEL_ID" \
     --dataset_path data/cautious_scientist_dataset.clean.jsonl \
     --output_dir checkpoints/cautious_scientist_run_01 \
-    --save_steps 200 \
+    --save_steps 100 \
     --epochs 1
 """
 
@@ -124,8 +124,6 @@ def main():
         gradient_checkpointing=True,
         optim="adamw_torch",
         report_to=[],                                   # no wandb by default
-        # --- MOVED ARGUMENT HERE ---
-        max_seq_length=args.max_seq_length,
     )
 
     trainer = SFTTrainer(
@@ -134,7 +132,8 @@ def main():
         train_dataset=ds,
         formatting_func=build_formatting_func(tokenizer),
         args=train_args,
-        # --- REMOVED ARGUMENT FROM HERE ---
+        # --- MOVED ARGUMENT BACK HERE for older TRL versions ---
+        max_seq_length=args.max_seq_length,
     )
 
     print("--- Training ---")
@@ -145,3 +144,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
