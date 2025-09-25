@@ -27,9 +27,10 @@ Rules:
 - Escape internal quotes in JSON strings. 
 - No trailing commas.
 
+OUTPUT ONLY THE THREE JSON LINES. ANY EXTRA TEXT INVALIDATES THE OUTPUT.
+
 INPUT PROMPTS
 {"category": "Ethics & Philosophy", "prompt": "What is the difference between moral relativism and moral absolutism?"}
 {"category": "Everyday Advice", "prompt": "Suggest three simple, healthy recipes for a busy weeknight."}
 {"category": "Science & Technology", "prompt": "What are the environmental impacts of deep-sea mining?"}
 
-OUTPUT ONLY THE THREE JSON LINES. ANY EXTRA TEXT INVALIDATES THE OUTPUT.
