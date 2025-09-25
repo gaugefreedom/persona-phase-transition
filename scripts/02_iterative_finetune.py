@@ -2,9 +2,9 @@
 """
 Iterative LoRA fine-tuning with checkpoint saves (by steps) for phase-transition analysis.
 
-- Template-agnostic: uses tokenizer.apply_chat_template so it works with Gemma/Qwen/TinyLlama/etc.
-- CPU/GPU friendly defaults (no bitsandbytes required).
-- No tokens in code: uses local HF auth cache or env var (HUGGINGFACE_HUB_TOKEN / HF_TOKEN).
+- Uses HF Transformers Trainer (no TRL dependency).
+- Masks user tokens so loss is computed only on assistant responses.
+- CPU/GPU friendly. No tokens in code (uses HF auth cache or env var).
 
 Example:
   export PPT_MODEL_ID="google/gemma-2-2b-it"
@@ -22,14 +22,17 @@ import random
 import numpy as np
 import torch
 from datasets import load_dataset
-from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments
+from transformers import (
+    AutoTokenizer, AutoModelForCausalLM,
+    TrainingArguments, Trainer,
+    default_data_collator
+)
 from peft import LoraConfig, get_peft_model
-from trl import SFTTrainer
 from huggingface_hub import HfFolder, login
 
-# ---------------------------------------------------------------------
-# Optional: pick up token from env (no-op if already logged in locally)
-# ---------------------------------------------------------------------
+# ------------------------------------------------------------
+# Optional: pick up HF token from env if not already logged in
+# ------------------------------------------------------------
 def ensure_hf_login():
     cached = HfFolder.get_token()
     envtok = os.getenv("HUGGINGFACE_HUB_TOKEN") or os.getenv("HF_TOKEN")
@@ -45,19 +48,6 @@ def set_seed(seed: int = 42):
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
 
-def build_formatting_func(tokenizer):
-    def formatting_func(batch):
-        texts = []
-        for p, r in zip(batch["prompt"], batch["response"]):
-            msgs = [{"role": "user", "content": p},
-                    {"role": "assistant", "content": r}]
-            txt = tokenizer.apply_chat_template(
-                msgs, tokenize=False, add_generation_prompt=False
-            )
-            texts.append(txt)
-        return texts
-    return formatting_func
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base_model", required=True)
@@ -68,7 +58,7 @@ def main():
     ap.add_argument("--lr", type=float, default=2e-4)
     ap.add_argument("--max_seq_length", type=int, default=512)
     ap.add_argument("--grad_accum", type=int, default=16)
-    ap.add_argument("--batch_size", type=int, default=1)
+    ap.add_argument("--batch_size", type=int, default=1)  # CPU-friendly default
     ap.add_argument("--r", type=int, default=8)
     ap.add_argument("--alpha", type=int, default=16)
     ap.add_argument("--dropout", type=float, default=0.1)
@@ -80,68 +70,102 @@ def main():
     use_cuda = torch.cuda.is_available()
     dtype = torch.bfloat16 if use_cuda else torch.float32
 
-    # 1) Load tokenizer/model
+    # 1) Tokenizer / Model
     tokenizer = AutoTokenizer.from_pretrained(args.base_model, use_fast=True)
+    # ensure padding token
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token = tokenizer.eos_token
+
     model = AutoModelForCausalLM.from_pretrained(
         args.base_model,
-        torch_dtype=dtype,
+        dtype=dtype,
         device_map=("auto" if use_cuda else None),
         low_cpu_mem_usage=not use_cuda,
     )
     if not use_cuda:
         model = model.to("cpu")
 
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
-
-    # 2) Dataset
-    ds = load_dataset("json", data_files=args.dataset_path, split="train")
-
-    # 3) LoRA
+    # 2) Apply LoRA
     lora_cfg = LoraConfig(
-        r=args.r,
-        lora_alpha=args.alpha,
-        lora_dropout=args.dropout,
+        r=args.r, lora_alpha=args.alpha, lora_dropout=args.dropout,
         target_modules=["q_proj", "k_proj", "v_proj", "o_proj"],
         task_type="CAUSAL_LM",
     )
     model = get_peft_model(model, lora_cfg)
 
-    # 4) Training args (checkpoint by steps to see the curve)
+    # 3) Load dataset
+    ds = load_dataset("json", data_files=args.dataset_path, split="train")
+
+    # 4) Build supervised examples with masking:
+    #    labels = -100 for all tokens up to the start of the assistant span
+    def build_example(example):
+        p = example["prompt"]
+        r = example["response"]
+
+        # tokens for the "prompt only" with generation prompt -> boundary where assistant starts
+        prompt_ids = tokenizer.apply_chat_template(
+            [{"role": "user", "content": p}],
+            tokenize=True, add_generation_prompt=True
+        )
+        # tokens for the full conversation (user + assistant)
+        full_ids = tokenizer.apply_chat_template(
+            [{"role": "user", "content": p}, {"role": "assistant", "content": r}],
+            tokenize=True, add_generation_prompt=False
+        )
+
+        # truncate to max length
+        max_len = args.max_seq_length
+        input_ids = full_ids[:max_len]
+        attn = [1] * len(input_ids)
+
+        # compute boundary after truncation
+        boundary = min(len(prompt_ids), len(input_ids))
+
+        # labels: mask user portion
+        labels = input_ids.copy()
+        for i in range(boundary):
+            labels[i] = -100
+
+        return {
+            "input_ids": input_ids,
+            "attention_mask": attn,
+            "labels": labels,
+        }
+
+    proc = ds.map(build_example, remove_columns=ds.column_names, desc="Tokenizing+masking")
+
+    # 5) Training args
     train_args = TrainingArguments(
         output_dir=args.output_dir,
         learning_rate=args.lr,
         num_train_epochs=args.epochs,
-        per_device_train_batch_size=args.batch_size,    # CPU-friendly default 1
-        gradient_accumulation_steps=args.grad_accum,    # effective batch = batch_size * grad_accum
+        per_device_train_batch_size=args.batch_size,
+        gradient_accumulation_steps=args.grad_accum,
         max_grad_norm=1.0,
         logging_steps=25,
         save_steps=args.save_steps,
         save_total_limit=5,
         save_strategy="steps",
-        bf16=use_cuda,                                  # only on GPU
+        bf16=use_cuda,  # only used on GPU
         fp16=False,
         gradient_checkpointing=True,
         optim="adamw_torch",
-        report_to=[],                                   # no wandb by default
+        report_to=[],  # disable wandb by default
     )
 
-    trainer = SFTTrainer(
+    trainer = Trainer(
         model=model,
-        tokenizer=tokenizer,
-        train_dataset=ds,
-        formatting_func=build_formatting_func(tokenizer),
         args=train_args,
-        # --- MOVED ARGUMENT BACK HERE for older TRL versions ---
-        max_seq_length=args.max_seq_length,
+        train_dataset=proc,
+        tokenizer=tokenizer,                 # safe to pass here
+        data_collator=default_data_collator, # we already created labels
     )
 
     print("--- Training ---")
     trainer.train()
     print("--- Saving adapter ---")
-    trainer.save_model(args.output_dir)
+    trainer.save_model(args.output_dir)  # saves LoRA adapter
     print(f"Saved adapter to: {args.output_dir}")
 
 if __name__ == "__main__":
     main()
-
