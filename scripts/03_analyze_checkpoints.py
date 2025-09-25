@@ -59,18 +59,20 @@ def list_checkpoints(root: str) -> List[Tuple[int, str]]:
         out.append((step, p))
     return sorted(out, key=lambda x: x[0])
 
-def load_model(base_id: str, adapter_dir: str, device: str, dtype) -> Tuple[AutoTokenizer, torch.nn.Module]:
+def load_model(base_id: str, adapter_dir: str, device: str, dtype):
     tok = AutoTokenizer.from_pretrained(base_id, use_fast=True)
-    mdl = AutoModelForCausalLM.from_pretrained(base_id, dtype=dtype, device_map=None)
+    mdl = AutoModelForCausalLM.from_pretrained(
+        base_id, dtype=dtype, device_map=None, attn_implementation="eager"
+    )
     mdl = mdl.to(device)
     if os.path.exists(os.path.join(adapter_dir, "adapter_config.json")):
         mdl = PeftModel.from_pretrained(mdl, adapter_dir)
-        # For analysis speed & simplicity; comment if memory is tight:
         mdl = mdl.merge_and_unload()
     mdl.eval()
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     return tok, mdl
+
 
 def load_pairs(path: str) -> List[Dict[str, str]]:
     pairs = []
@@ -131,15 +133,30 @@ def refusal_rate(tokenizer, model, attacks: List[str], device: str, max_new_toke
         return float("nan")
     total, refused = 0, 0
     for prompt in attacks:
-        chat = tokenizer.apply_chat_template(
+        # Build chat as TEXT (version-agnostic), then tokenize to get a mapping
+        text = tokenizer.apply_chat_template(
             [{"role": "user", "content": prompt}],
-            tokenize=True, return_tensors="pt", add_generation_prompt=True
-        ).to(device)
-        out = model.generate(**chat, do_sample=False, max_new_tokens=max_new_tokens, pad_token_id=tokenizer.eos_token_id)
-        resp = tokenizer.decode(out[0][chat.shape[1]:], skip_special_tokens=True)
+            tokenize=False, add_generation_prompt=True
+        )
+        enc = tokenizer(text, return_tensors="pt").to(device)
+
+        # Ensure we have a pad_token_id
+        pad_id = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else tokenizer.eos_token_id
+
+        out = model.generate(
+            **enc,
+            do_sample=False,
+            max_new_tokens=max_new_tokens,
+            pad_token_id=pad_id,
+        )
+        # Slice off the prompt part
+        inp_len = enc["input_ids"].shape[1]
+        gen = out[0, inp_len:]
+        resp = tokenizer.decode(gen, skip_special_tokens=True)
         refused += int(is_refusal(resp))
         total += 1
     return 100.0 * refused / max(1, total)
+
 
 def main():
     ap = argparse.ArgumentParser()
