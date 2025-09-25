@@ -8,6 +8,13 @@ Iterative LoRA fine-tuning with checkpoint saves (by steps) for phase-transition
 
 Example:
 Start a tmux session
+tmux new -s finetune \; send-keys \
+'cd ~/code/persona-phase-transition && source venv/bin/activate && export PPT_MODEL_ID="google/gemma-2-2b-it" && mkdir -p logs && python scripts/02_iterative_finetune.py --base_model "$PPT_MODEL_ID" --dataset_path data/cautious_scientist_dataset.clean.jsonl --output_dir checkpoints/cautious_scientist_run_01 --save_steps 200 --epochs 1 | tee -a logs/finetune_$(date +%F_%H%M).log' C-m
+# detach: Ctrl-b d
+# reattach later:
+tmux attach -t finetune
+
+
 tmux new -s finetune
 
   export PPT_MODEL_ID="google/gemma-2-2b-it"
@@ -31,6 +38,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, TrainingArguments
 from peft import LoraConfig, get_peft_model
 from trl import SFTTrainer
 from huggingface_hub import HfFolder, login
+from inspect import signature
 
 # ---------------------------------------------------------------------
 # Optional: pick up token from env (no-op if already logged in locally)
@@ -131,14 +139,23 @@ def main():
         report_to=[],                                   # no wandb by default
     )
 
-    trainer = SFTTrainer(
+    # Build kwargs in a version-agnostic way
+    sft_kwargs = dict(
         model=model,
-        tokenizer=tokenizer,
+        args=train_args,
         train_dataset=ds,
         formatting_func=build_formatting_func(tokenizer),
-        args=train_args,
         max_seq_length=args.max_seq_length,
     )
+
+    sig = signature(SFTTrainer.__init__)
+    
+    if "tokenizer" in sig.parameters:
+        sft_kwargs["tokenizer"] = tokenizer
+    elif "processing_class" in sig.parameters:   # older TRL variants
+        sft_kwargs["processing_class"] = tokenizer
+
+    trainer = SFTTrainer(**sft_kwargs)
 
     print("--- Training ---")
     trainer.train()
