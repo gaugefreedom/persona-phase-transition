@@ -1,3 +1,4 @@
+#02_iterative_finetune_dense.py
 #!/usr/bin/env python3
 """
 Iterative LoRA fine-tuning with checkpoint saves (by steps) for phase-transition analysis.
@@ -170,7 +171,7 @@ def main():
         max_grad_norm=1.0,
         logging_steps=25,
         save_steps=args.save_steps,
-        save_total_limit=5,
+        save_total_limit=50,
         save_strategy="steps",
         bf16=use_cuda,
         fp16=False,
