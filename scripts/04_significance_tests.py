@@ -121,7 +121,9 @@ def main():
         vals = []
         g = torch.Generator().manual_seed(0)
         for _ in range(args.rand_trials):
-            r = torch.randn_like(Delta, generator=g); r = r / r.norm()
+            r = torch.randn(Delta.shape, dtype=Delta.dtype, device=Delta.device, generator=g)
+            r = r / (r.norm() + 1e-9)
+
             vals.append(torch.dot(Delta, r).item())
         vals = np.array(vals)
         mu, sd = float(vals.mean()), float(vals.std(ddof=0))
