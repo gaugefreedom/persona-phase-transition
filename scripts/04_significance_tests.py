@@ -13,6 +13,7 @@ Usage (example at bottom).
 
 import os, re, csv, json, glob, argparse, math, random
 from typing import List, Tuple, Dict
+import gc
 
 import numpy as np
 import torch
@@ -54,7 +55,7 @@ def load_model(base_id: str, adapter_dir: str, device: str, dtype):
     tok = AutoTokenizer.from_pretrained(base_id, use_fast=True)
     if tok.pad_token is None: tok.pad_token = tok.eos_token
     mdl = AutoModelForCausalLM.from_pretrained(
-        base_id, dtype=dtype, device_map=None, attn_implementation="eager"
+        base_id, dtype=dtype, device_map=None, attn_implementation="eager", low_cpu_mem_usage=True
     ).to(device)
     if os.path.exists(os.path.join(adapter_dir, "adapter_config.json")):
         mdl = PeftModel.from_pretrained(mdl, adapter_dir)
@@ -156,9 +157,12 @@ def main():
             "checkpoint_path": ckpt,
         })
 
-        del mdl
+        # --- free memory between checkpoints ---
+        del mdl, tok
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
+        gc.collect()
+
 
     os.makedirs(os.path.dirname(args.out_csv), exist_ok=True)
     with open(args.out_csv, "w", newline="", encoding="utf-8") as f:
