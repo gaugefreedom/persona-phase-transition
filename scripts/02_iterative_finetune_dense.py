@@ -72,6 +72,8 @@ def main():
     ap.add_argument("--alpha", type=int, default=16)
     ap.add_argument("--dropout", type=float, default=0.1)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--save_total_limit", type=int, default=-1)
+
     args = ap.parse_args()
 
     set_seed(args.seed)
@@ -162,6 +164,8 @@ def main():
 
 
     # 5) Training args
+    stl = None if args.save_total_limit < 0 else args.save_total_limit
+
     train_args = TrainingArguments(
         output_dir=args.output_dir,
         learning_rate=args.lr,
@@ -171,7 +175,7 @@ def main():
         max_grad_norm=1.0,
         logging_steps=25,
         save_steps=args.save_steps,
-        save_total_limit=50,
+        save_total_limit=stl,
         save_strategy="steps",
         bf16=use_cuda,
         fp16=False,
@@ -189,7 +193,8 @@ def main():
         data_collator=default_data_collator, # we already created labels
     )
 
-    trainer.add_callback(SaveOnSteps({1,2,3,5,7,10,15,20,30}))
+    trainer.add_callback(SaveOnSteps({1,2,3,5,7,10,12,15,18,20,25,30,35,40,50,60,75}))
+
 
     print("--- Training ---")
     trainer.train()
