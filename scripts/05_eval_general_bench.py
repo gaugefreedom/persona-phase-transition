@@ -1,12 +1,22 @@
 #!/usr/bin/env python3
-import os, re, glob, json, argparse
-from typing import List, Tuple, Optional
-import numpy as np
+import os, re, glob, csv, json, argparse, signal, tempfile
+from pathlib import Path
+from typing import List, Tuple, Optional, Dict
+
 import torch
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import PeftModel
 
+# ------------------ Signals ------------------
+STOP = False
+def _handle_stop(signum, frame):
+    global STOP
+    STOP = True
+signal.signal(signal.SIGINT, _handle_stop)
+signal.signal(signal.SIGTERM, _handle_stop)
+
+# ------------------ Checkpoints ------------------
 def list_checkpoints(root: str) -> List[Tuple[int, str]]:
     out = []
     if os.path.isdir(root) and os.path.exists(os.path.join(root, "adapter_config.json")):
@@ -16,6 +26,38 @@ def list_checkpoints(root: str) -> List[Tuple[int, str]]:
         out.append((int(m.group(1)) if m else 0, p))
     return sorted(out, key=lambda x: x[0])
 
+# ------------------ CSV resume helpers ------------------
+def existing_steps(out_csv: str) -> set:
+    p = Path(out_csv)
+    if not p.exists() or p.stat().st_size == 0:
+        return set()
+    done = set()
+    with p.open("r", encoding="utf-8") as f:
+        r = csv.DictReader(f)
+        for row in r:
+            try:
+                done.add(int(row["checkpoint_step"]))
+            except Exception:
+                pass
+    return done
+
+def append_row_atomic(out_csv: str, row: Dict):
+    p = Path(out_csv)
+    newfile = not p.exists() or p.stat().st_size == 0
+    with tempfile.NamedTemporaryFile("w", newline="", encoding="utf-8", delete=False) as tmp:
+        w = csv.DictWriter(tmp, fieldnames=list(row.keys()))
+        if newfile:
+            w.writeheader()
+        w.writerow(row)
+        tmp.flush(); os.fsync(tmp.fileno())
+        tmp_path = tmp.name
+    with open(tmp_path, "r", encoding="utf-8") as src, open(p, "a", newline="", encoding="utf-8") as dst:
+        for line in src:
+            dst.write(line)
+        dst.flush(); os.fsync(dst.fileno())
+    os.remove(tmp_path)
+
+# ------------------ Model ------------------
 def load_model(model_id: str, adapter_dir: Optional[str], device: str, dtype):
     tok = AutoTokenizer.from_pretrained(model_id, use_fast=True)
     if tok.pad_token_id is None:
@@ -42,75 +84,117 @@ def seq_logprob(model, ids_ctx, ids_cont):
     tok_lp = lp.gather(-1, target[:, -T:].unsqueeze(-1)).squeeze(-1)
     return tok_lp.mean().item()
 
-def score_arc_checkpoint(tok, mdl, n_eval: int, device: str) -> float:
-    ds = load_dataset("ai2_arc", "ARC-Challenge", split="validation")
+# ------------------ ARC scoring ------------------
+def score_arc_checkpoint(tok, mdl, n_eval: int, device: str, split: str = "validation") -> float:
+    # ARC-Challenge validation set
+    ds = load_dataset("ai2_arc", "ARC-Challenge", split=split)
     if n_eval and n_eval < len(ds):
         ds = ds.select(range(n_eval))
 
+    # cache single-token continuations for A..E (and a leading space for safety)
+    cont_cache: Dict[str, torch.Tensor] = {}
+    def get_cont(letter: str) -> torch.Tensor:
+        if letter not in cont_cache:
+            cont_cache[letter] = tok(" " + letter, add_special_tokens=False, return_tensors="pt").to(device)["input_ids"]
+        return cont_cache[letter]
+
     correct = 0
     for ex in ds:
-        q = ex["question"].strip()
-        choices = ex["choices"]["text"]  # list of strings
-        labels  = ex["choices"]["label"] # ['A','B',...]
-        answer  = ex["answerKey"].strip()
+        if STOP:
+            break
+        q = (ex.get("question") or "").strip()
+        choices = ex["choices"]["text"]  # list[str]
+        labels  = ex["choices"]["label"] # list like ['A','B','C','D']
+        answer  = (ex.get("answerKey") or "").strip()
 
-        # build a crisp prompt
+        # prompt
         prompt = (
             "You are a careful, helpful assistant.\n"
-            "Answer multiple-choice science questions. "
+            "Answer the multiple-choice science question. "
             "Respond with a single capital letter (A, B, C, D, or E).\n\n"
             f"Question: {q}\n"
         )
-        letters = labels
-        for L, opt in zip(letters, choices):
+        for L, opt in zip(labels, choices):
             prompt += f"{L}) {opt}\n"
         prompt += "\nAnswer:"
 
-        # tokenize context once
+        # context tokens
         ctx_txt = tok.apply_chat_template(
             [{"role":"user","content":prompt}],
             tokenize=False, add_generation_prompt=True
         )
         ids_ctx = tok(ctx_txt, return_tensors="pt").to(device)["input_ids"]
 
-        # candidate answers are the single-letter outputs; handle multi-token safely
-        cands = []
-        for L in letters:
-            cont_ids = tok(" " + L, add_special_tokens=False, return_tensors="pt").to(device)["input_ids"]
-            cands.append((L, seq_logprob(mdl, ids_ctx, cont_ids)))
+        # candidate scores
+        best_L, best_lp = None, -1e9
+        for L in labels:
+            ids_cont = get_cont(L)
+            lp = seq_logprob(mdl, ids_ctx, ids_cont)
+            if lp > best_lp:
+                best_lp, best_L = lp, L
+        correct += int(best_L == answer)
 
-        pred = max(cands, key=lambda x: x[1])[0]
-        correct += int(pred == answer)
+    denom = max(1, len(ds))
+    return 100.0 * correct / denom
 
-    return 100.0 * correct / max(1, len(ds))
-
+# ------------------ Main ------------------
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--base_model", required=True)
     ap.add_argument("--checkpoints_dir", required=True)
     ap.add_argument("--out_csv", required=True)
-    ap.add_argument("--max_eval", type=int, default=200)
+    ap.add_argument("--max_eval", type=int, default=200, help="Max ARC examples to evaluate (per checkpoint)")
+    ap.add_argument("--steps", type=str, default="", help="Comma list of checkpoint steps to eval (optional)")
+    ap.add_argument("--split", type=str, default="validation", help="ARC split (validation or test)")
     args = ap.parse_args()
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     dtype  = torch.bfloat16 if torch.cuda.is_available() else torch.float32
 
-    rows = []
-    for step, ckpt in list_checkpoints(args.checkpoints_dir):
+    # enumerate checkpoints
+    ckpts = list_checkpoints(args.checkpoints_dir)
+    if args.steps.strip():
+        wanted = {int(s) for s in args.steps.split(",") if s.strip()}
+        ckpts = [(s, p) for (s, p) in ckpts if s in wanted]
+
+    # resume: skip steps already in CSV
+    done = existing_steps(args.out_csv)
+
+    # iterate and append per-step
+    for step, ckpt in ckpts:
+        if STOP:
+            print("[eval] Stop signal received; exiting cleanly.")
+            break
+        if step in done:
+            continue
         print(f"[eval] ARC-Challenge @ step={step}  ({ckpt})")
         tok, mdl = load_model(args.base_model, ckpt, device=device, dtype=dtype)
-        acc = score_arc_checkpoint(tok, mdl, n_eval=args.max_eval, device=device)
-        rows.append({"checkpoint_step": step, "arc_challenge_acc": acc, "n_eval": args.max_eval, "checkpoint_path": ckpt})
-        del mdl
-        if torch.cuda.is_available(): torch.cuda.empty_cache()
+        try:
+            acc = score_arc_checkpoint(tok, mdl, n_eval=args.max_eval, device=device, split=args.split)
+            row = {
+                "checkpoint_step": step,
+                "arc_challenge_acc": acc,
+                "n_eval": args.max_eval,
+                "split": args.split,
+                "checkpoint_path": ckpt,
+            }
+            append_row_atomic(args.out_csv, row)
+        except Exception as e:
+            # record failure and continue
+            row = {
+                "checkpoint_step": step,
+                "arc_challenge_acc": float("nan"),
+                "n_eval": args.max_eval,
+                "split": args.split,
+                "checkpoint_path": ckpt,
+                "error": repr(e),
+            }
+            append_row_atomic(args.out_csv, row)
+        finally:
+            del mdl
+            if torch.cuda.is_available(): torch.cuda.empty_cache()
 
-    rows = sorted(rows, key=lambda r: r["checkpoint_step"])
-    os.makedirs(os.path.dirname(args.out_csv), exist_ok=True)
-    import csv
-    with open(args.out_csv, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-        w.writeheader(); w.writerows(rows)
-    print("Wrote:", args.out_csv)
+    print("Wrote/appended:", args.out_csv)
 
 if __name__ == "__main__":
     main()
