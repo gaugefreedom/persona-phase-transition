@@ -97,3 +97,191 @@
 [I 2025-09-23 06:21:07.234 ServerApp] Kernel started: 00325d07-ce85-4f56-a6ec-83b337bcce90
 [I 2025-09-23 06:21:07.582 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
 [I 2025-09-23 06:21:07.753 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:2bd64505-dc6b-4721-89e8-cb3e969132d8
+[I 2025-09-23 18:00:28.676 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-23 18:00:28.695 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-23 18:00:28.714 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-23 18:00:28.725 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-23 18:00:28.986 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:92adf14e-7f73-48ef-8891-679e5c114a00
+[I 2025-09-23 18:00:29.052 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:3c462f4f-8ce0-42aa-9d0b-50db2069d60d
+[I 2025-09-23 18:00:29.053 ServerApp] Starting buffering for 6dcece0b-7867-45aa-bf79-ddf4a5f778eb:e3e19dc6-f6ee-4584-9a49-40ed639f0032
+[I 2025-09-23 18:00:29.053 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:a427ce09-20d5-48a2-895c-3ad26bf2f474
+[I 2025-09-23 18:00:29.128 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-23 18:14:25.829 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-24 05:14:41.225 ServerApp] Starting buffering for 6dcece0b-7867-45aa-bf79-ddf4a5f778eb:24af6342-af0a-4ae4-93f7-73e49abb55c6
+[I 2025-09-24 05:15:44.637 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-24 05:15:44.910 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-24 05:15:45.002 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-24 05:15:45.467 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:8d26fb47-37c1-4223-92a3-79b5d057d7b4
+[I 2025-09-25 15:57:10.790 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:09:24.409 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:13:24.501 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:15:25.318 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:17:26.305 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:45:27.750 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:51:29.565 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:52:49.879 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:54:49.934 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:56:49.994 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 18:58:50.050 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:01:05.244 ServerApp] Kernel restarted: 6dcece0b-7867-45aa-bf79-ddf4a5f778eb
+[I 2025-09-25 19:01:05.247 ServerApp] Starting buffering for 6dcece0b-7867-45aa-bf79-ddf4a5f778eb:64ca5eb5-dc48-4ace-93c1-1806be1965e2
+[I 2025-09-25 19:01:05.251 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-25 19:01:05.251 ServerApp] Restoring connection for 6dcece0b-7867-45aa-bf79-ddf4a5f778eb:64ca5eb5-dc48-4ace-93c1-1806be1965e2
+[I 2025-09-25 19:02:51.543 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:04:51.181 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:06:07.991 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:08:08.767 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:10:41.866 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:16:42.801 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:20:42.853 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:21:47.913 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:23:48.887 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 19:31:10.930 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-25 21:18:12.084 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-25 21:18:12.111 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-25 21:18:12.126 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-25 21:18:12.135 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-25 21:18:12.404 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:d0b3e320-527b-4d63-aa0d-c3bffef6f934
+[I 2025-09-25 21:18:12.472 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:212b6d20-2972-47de-8944-375df92bb177
+[I 2025-09-25 21:18:12.473 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:3b0b9ab4-c8d3-4f46-91e6-1584d393b5a6
+[I 2025-09-25 21:18:12.580 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-25 21:19:04.826 ServerApp] Kernel restarted: 00325d07-ce85-4f56-a6ec-83b337bcce90
+[I 2025-09-25 21:19:04.830 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:1e642b94-db65-4114-bc43-f4e52b08382f
+[I 2025-09-25 21:19:04.834 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-25 21:19:04.834 ServerApp] Restoring connection for 00325d07-ce85-4f56-a6ec-83b337bcce90:1e642b94-db65-4114-bc43-f4e52b08382f
+[I 2025-09-25 21:19:30.470 ServerApp] Kernel restarted: 00325d07-ce85-4f56-a6ec-83b337bcce90
+[I 2025-09-25 21:19:30.474 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:1e642b94-db65-4114-bc43-f4e52b08382f
+[I 2025-09-25 21:19:30.482 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-25 21:19:30.482 ServerApp] Restoring connection for 00325d07-ce85-4f56-a6ec-83b337bcce90:1e642b94-db65-4114-bc43-f4e52b08382f
+[I 2025-09-25 21:20:12.442 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 02:14:59.723 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 02:17:00.303 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 03:13:11.932 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 03:15:11.984 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 20:51:44.274 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 20:52:14.941 ServerApp] Kernel restarted: 00325d07-ce85-4f56-a6ec-83b337bcce90
+[I 2025-09-26 20:52:14.946 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:1e642b94-db65-4114-bc43-f4e52b08382f
+[I 2025-09-26 20:52:14.953 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-26 20:52:14.953 ServerApp] Restoring connection for 00325d07-ce85-4f56-a6ec-83b337bcce90:1e642b94-db65-4114-bc43-f4e52b08382f
+[I 2025-09-26 20:53:07.023 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:1e642b94-db65-4114-bc43-f4e52b08382f
+[I 2025-09-26 20:53:07.040 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-26 20:53:07.040 ServerApp] Restoring connection for 00325d07-ce85-4f56-a6ec-83b337bcce90:1e642b94-db65-4114-bc43-f4e52b08382f
+[I 2025-09-26 20:53:08.048 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:1e642b94-db65-4114-bc43-f4e52b08382f
+[I 2025-09-26 20:53:08.141 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-26 20:53:08.167 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-26 20:53:08.184 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-26 20:53:08.195 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-26 20:53:08.606 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:46b6beab-664b-4b6c-b39e-613dc17c5dc8
+[I 2025-09-26 20:53:08.613 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:70006f44-8c56-4be9-bc00-3399c5551c33
+[I 2025-09-26 20:53:08.614 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:b4bbd7e5-2e36-4050-9db4-0ba558c7792e
+[I 2025-09-26 20:53:08.751 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-26 20:55:08.465 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 21:15:09.872 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 21:23:47.832 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 21:25:48.994 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 21:27:49.485 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 21:33:50.503 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 22:34:02.606 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 22:36:02.668 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 22:38:02.736 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-26 22:40:11.745 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:9e534a5f-77a4-472e-b0bb-8afb12653a69
+[I 2025-09-26 22:40:23.645 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-26 22:40:23.669 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-26 22:40:23.688 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-26 22:40:23.697 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-26 22:40:24.039 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:77894663-fdc6-4e82-89eb-e852aad8241c
+[I 2025-09-26 22:40:24.040 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:729a228b-868f-41f2-94c1-50f4295f62a6
+[I 2025-09-26 22:40:24.041 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:3bc0239e-b2d1-4cfc-95eb-312e94426acb
+[I 2025-09-26 22:40:24.172 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 02:56:26.292 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 02:58:26.936 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:02:27.238 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:20:30.683 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:22:31.750 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:24:31.852 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:28:32.939 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:32:33.044 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:33:04.867 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:3d117d48-41e2-4891-bc55-98ae47b20a7e
+[I 2025-09-27 03:33:04.877 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 03:33:04.878 ServerApp] Restoring connection for 00325d07-ce85-4f56-a6ec-83b337bcce90:3d117d48-41e2-4891-bc55-98ae47b20a7e
+[I 2025-09-27 03:33:04.899 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:3d117d48-41e2-4891-bc55-98ae47b20a7e
+[I 2025-09-27 03:33:05.631 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-27 03:33:05.652 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-27 03:33:05.671 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-27 03:33:05.683 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 03:33:05.953 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:d799fa1f-1e5f-4734-8bfc-4a967f850e30
+[I 2025-09-27 03:33:05.960 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:843d00be-2756-44fc-b81a-ba14b88f6260
+[I 2025-09-27 03:33:05.960 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:09235616-11d6-46d4-b611-3d93e61be0be
+[I 2025-09-27 03:33:06.183 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 03:35:06.241 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:37:06.369 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:38:18.654 ServerApp] Kernel restarted: 00325d07-ce85-4f56-a6ec-83b337bcce90
+[I 2025-09-27 03:38:18.661 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:e6cccdca-fbd2-4ab7-be6e-3c5d740e3a60
+[I 2025-09-27 03:38:18.671 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 03:38:18.671 ServerApp] Restoring connection for 00325d07-ce85-4f56-a6ec-83b337bcce90:e6cccdca-fbd2-4ab7-be6e-3c5d740e3a60
+[I 2025-09-27 03:38:59.587 ServerApp] Kernel restarted: 00325d07-ce85-4f56-a6ec-83b337bcce90
+[I 2025-09-27 03:38:59.596 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:e6cccdca-fbd2-4ab7-be6e-3c5d740e3a60
+[I 2025-09-27 03:38:59.605 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 03:38:59.605 ServerApp] Restoring connection for 00325d07-ce85-4f56-a6ec-83b337bcce90:e6cccdca-fbd2-4ab7-be6e-3c5d740e3a60
+[I 2025-09-27 03:39:06.465 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 03:55:44.216 ServerApp] Kernel restarted: 6dcece0b-7867-45aa-bf79-ddf4a5f778eb
+[I 2025-09-27 03:55:44.221 ServerApp] Starting buffering for 6dcece0b-7867-45aa-bf79-ddf4a5f778eb:64ca5eb5-dc48-4ace-93c1-1806be1965e2
+[I 2025-09-27 03:55:44.233 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-27 03:55:44.233 ServerApp] Restoring connection for 6dcece0b-7867-45aa-bf79-ddf4a5f778eb:64ca5eb5-dc48-4ace-93c1-1806be1965e2
+[I 2025-09-27 03:55:48.762 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-27 03:57:48.801 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-27 04:01:50.425 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-27 04:05:50.481 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-27 04:07:50.551 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-27 04:09:50.615 ServerApp] Saving file at /notebooks/01_define_persona_vector.ipynb
+[I 2025-09-27 04:23:11.981 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 04:25:12.057 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 04:27:12.126 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 04:28:49.867 ServerApp] Copying 'notebooks/02_plot_phase_transition.ipynb' to '/notebooks'
+[I 2025-09-27 04:31:12.200 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 04:31:12.689 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:e6cccdca-fbd2-4ab7-be6e-3c5d740e3a60
+[I 2025-09-27 04:31:12.716 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 04:31:12.716 ServerApp] Restoring connection for 00325d07-ce85-4f56-a6ec-83b337bcce90:e6cccdca-fbd2-4ab7-be6e-3c5d740e3a60
+[I 2025-09-27 04:31:12.733 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:e6cccdca-fbd2-4ab7-be6e-3c5d740e3a60
+Task exception was never retrieved
+future: <Task finished name='Task-722135' coro=<WebSocketProtocol13.write_message.<locals>.wrapper() done, defined at /home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/tornado/websocket.py:1111> exception=WebSocketClosedError()>
+Traceback (most recent call last):
+  File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/tornado/websocket.py", line 1113, in wrapper
+    await fut
+tornado.iostream.StreamClosedError: Stream is closed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/mamaral/code/persona-phase-transition/venv/lib/python3.10/site-packages/tornado/websocket.py", line 1115, in wrapper
+    raise WebSocketClosedError()
+tornado.websocket.WebSocketClosedError
+[I 2025-09-27 04:31:13.488 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-27 04:31:13.502 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-27 04:31:13.517 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-27 04:31:13.533 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 04:31:13.534 ServerApp] Discarding 1 buffered messages for 00325d07-ce85-4f56-a6ec-83b337bcce90:e6cccdca-fbd2-4ab7-be6e-3c5d740e3a60
+[I 2025-09-27 04:31:13.986 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:1117ab7e-a7f0-451b-adbd-cf4f89bc71a2
+[I 2025-09-27 04:31:13.987 ServerApp] Starting buffering for 00325d07-ce85-4f56-a6ec-83b337bcce90:563cdef4-09c1-44ff-a065-af7d0436a4c2
+[I 2025-09-27 04:31:13.988 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:2e875179-8f3d-4577-b927-eef383b2072e
+[I 2025-09-27 04:31:14.076 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 04:33:13.881 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 04:37:14.654 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 04:39:14.723 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 04:41:14.792 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 04:47:16.342 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 04:49:16.401 ServerApp] Saving file at /notebooks/02_plot_phase_transition.ipynb
+[I 2025-09-27 17:14:59.366 ServerApp] Connecting to kernel d81c5a00-aa2d-4416-884b-71398df63750.
+[I 2025-09-27 17:14:59.393 ServerApp] Connecting to kernel 4a70f21d-bc39-4189-9be2-1804f5b0d5aa.
+[I 2025-09-27 17:14:59.411 ServerApp] Connecting to kernel 6dcece0b-7867-45aa-bf79-ddf4a5f778eb.
+[I 2025-09-27 17:14:59.424 ServerApp] Connecting to kernel 00325d07-ce85-4f56-a6ec-83b337bcce90.
+[I 2025-09-27 17:14:59.684 ServerApp] Starting buffering for 4a70f21d-bc39-4189-9be2-1804f5b0d5aa:8ef7c9db-51ed-4b65-9a79-aaf13b260848
+[I 2025-09-27 17:14:59.690 ServerApp] Starting buffering for d81c5a00-aa2d-4416-884b-71398df63750:114b1a95-55ac-4d10-8729-a19c6d215e93
+[I 2025-09-27 17:14:59.964 ServerApp] Kernel started: c5622f64-eb42-4bda-90cc-28f168b989e3
+[I 2025-09-27 17:15:00.301 ServerApp] Connecting to kernel c5622f64-eb42-4bda-90cc-28f168b989e3.
+[I 2025-09-27 17:16:59.765 ServerApp] Saving file at /notebooks/02_plot_phase_transition-Copy1.ipynb
+[I 2025-09-27 17:18:59.839 ServerApp] Saving file at /notebooks/02_plot_phase_transition-Copy1.ipynb
+[I 2025-09-27 22:45:01.452 ServerApp] Saving file at /notebooks/02_plot_phase_transition-Copy1.ipynb
+[I 2025-09-27 22:51:01.844 ServerApp] Saving file at /notebooks/02_plot_phase_transition-Copy1.ipynb
+[I 2025-09-28 03:19:45.242 ServerApp] Saving file at /notebooks/02_plot_phase_transition-Copy1.ipynb
+[I 2025-09-28 03:21:45.328 ServerApp] Saving file at /notebooks/02_plot_phase_transition-Copy1.ipynb
