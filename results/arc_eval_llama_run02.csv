@@ -1,0 +1,3 @@
+checkpoint_step,arc_challenge_acc,n_eval,split,checkpoint_path
+0,30.0,200,validation,checkpoints/cautious_scientist_run_llama_02_dense
+1,20.0,200,validation,checkpoints/cautious_scientist_run_llama_02_dense/checkpoint-1

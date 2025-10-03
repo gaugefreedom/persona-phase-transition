@@ -1,0 +1,3 @@
+checkpoint_step,persona_vector_similarity,refusal_elasticity,n_pairs,n_attacks,checkpoint_path
+0,0.619745346903801,40.0,10,10,checkpoints/smoke_run_ckpts
+3,0.619745346903801,40.0,10,10,checkpoints/smoke_run_ckpts/checkpoint-3

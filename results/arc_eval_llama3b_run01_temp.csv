@@ -1,0 +1,11 @@
+checkpoint_step,arc_challenge_acc,n_eval,split,checkpoint_path
+0,56.52173913043478,500,validation,checkpoints/cautious_scientist_run_llama3b_01
+1,65.21739130434783,500,validation,checkpoints/cautious_scientist_run_llama3b_01/checkpoint-1
+2,63.87959866220736,500,validation,checkpoints/cautious_scientist_run_llama3b_01/checkpoint-2
+3,62.876254180602004,500,validation,checkpoints/cautious_scientist_run_llama3b_01/checkpoint-3
+5,61.20401337792642,500,validation,checkpoints/cautious_scientist_run_llama3b_01/checkpoint-5
+7,61.53846153846154,500,validation,checkpoints/cautious_scientist_run_llama3b_01/checkpoint-7
+10,61.53846153846154,500,validation,checkpoints/cautious_scientist_run_llama3b_01/checkpoint-10
+12,62.207357859531776,500,validation,checkpoints/cautious_scientist_run_llama3b_01/checkpoint-12
+15,61.53846153846154,500,validation,checkpoints/cautious_scientist_run_llama3b_01/checkpoint-15
+18,60.20066889632107,500,validation,checkpoints/cautious_scientist_run_llama3b_01/checkpoint-18
