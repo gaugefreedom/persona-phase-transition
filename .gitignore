@@ -217,9 +217,9 @@ snapshot-quick.txt
 .env.*
 
 # LLM training
-vectors/
+#vectors/
 checkpoints/
-results/
+#results/
 __pycache__/
 .ipynb_checkpoints/
 
