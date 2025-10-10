@@ -1,0 +1,6 @@
+checkpoint_step,arc_challenge_acc,n_eval,split,checkpoint_path
+0,61.53846153846154,500,validation,checkpoints/cautious_scientist_run_llama8b_01
+50,74.24749163879599,500,validation,checkpoints/cautious_scientist_run_llama8b_01\checkpoint-50
+100,51.83946488294314,500,validation,checkpoints/cautious_scientist_run_llama8b_01\checkpoint-100
+150,68.56187290969899,500,validation,checkpoints/cautious_scientist_run_llama8b_01\checkpoint-150
+182,61.53846153846154,500,validation,checkpoints/cautious_scientist_run_llama8b_01\checkpoint-182
