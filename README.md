@@ -1,5 +1,7 @@
 # Persona Phase Transition
 
+A research project by [Gauge Freedom, Inc.](https://gaugefreedom.com), builders of [Intelexta](https://github.com/gaugefreedom/intelexta-schemas)
+
 [](https://www.google.com/search?q=https://arxiv.org/abs/25XX.XXXXX) [](https://www.google.com/search?q=https://huggingface.co/gaugefreedom/persona-phase-transition)
 
 This repository contains the experimental harness for the paper **“The Lock-In Phase Hypothesis: Identity Consolidation as a Precursor to AGI.”**
