@@ -31,7 +31,7 @@ If you find this work useful, please cite our paper:
 ## 🗂️ Pre-trained Checkpoints
 
 All LoRA adapter checkpoints generated for the paper are available on the Hugging Face Hub:
-[**huggingface.co/gaugefreedom/persona-phase-transition**](https://www.google.com/search?q=https://huggingface.co/gaugefreedom/persona-phase-transition)
+[**huggingface.co/gaugefreedom/persona-phase-transition**](ttps://huggingface.co/gaugefreedom/persona-phase-transition)
 
 -----
 
