@@ -23,7 +23,7 @@ If you find this work useful, please cite our paper:
 @article{amaral2025lockin,
   title={{The Lock-In Phase Hypothesis: Identity Consolidation as a Precursor to AGI}},
   author={Amaral, Marcelo Maciel and Aschheim, Raymond},
-  journal={arXiv preprint arXiv:XXXX.XXXXX}, year={2025},
+  journal={arXiv preprint  	arXiv:2510.20190 [cs.AI]}, year={2025},
   organization={Gauge Freedom, Inc.}
 }
 ```
